@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-MZ">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eu Amo Salgados | Nampula</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Pacifico&display=swap" rel="stylesheet">
+<style>
+:root{--amarelo:#FFC018;--preto:#1A1A1A;--branco:#fff;--cinza:#F5F5F5}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+body{background:var(--cinza)}
+.header{background:var(--preto);color:#fff;padding:16px 12px 50px;text-align:center}
+.header h1{font-family:'Pacifico',cursive;font-size:26px;color:var(--amarelo);line-height:1}
+.header h1 span{font-family:'Poppins';font-weight:800;font-size:18px;letter-spacing:2px;color:#fff;display:block;margin-top:2px}
+.badge{background:var(--amarelo);color:var(--preto);padding:5px 10px;border-radius:20px;font-size:9px;font-weight:800;display:inline-block;margin-top:8px}
+.hero-wave{height:28px;background:var(--amarelo);border-radius:50% 50% 0 0 / 100% 100% 0 0;margin-top:-20px}
+.container{padding:8px 10px 120px;max-width:900px;margin:0 auto}
+.cat-title{font-family:'Pacifico',cursive;font-size:18px;margin:18px 0 10px 2px;display:flex;align-items:center;gap:8px}
+.cat-title:after{content:'';flex:1;height:2px;background:var(--amarelo)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(min-width:700px){.grid{grid-template-columns:1fr 1fr 1fr}}
+.card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,.07);display:flex;flex-direction:column}
+.card img{width:100%;height:95px;object-fit:cover;background:#ddd}
+.card-body{padding:8px 9px;display:flex;flex-direction:column;flex:1}
+.card-body h3{font-size:10px;font-weight:700;text-transform:uppercase;line-height:1.2;min-height:22px}
+.card-body small{font-size:9px;opacity:.6}
+.price{font-weight:800;font-size:12px;margin:4px 0 6px}
+.price small{font-weight:400;font-size:9px}
+.actions{display:flex;justify-content:space-between;align-items:center;margin-top:auto}
+.qty{display:flex;align-items:center;gap:4px;background:var(--cinza);border-radius:16px;padding:3px 4px}
+.qty button{width:22px;height:22px;border:0;background:var(--preto);color:var(--amarelo);border-radius:50%;font-size:12px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.qty span{font-size:11px;font-weight:700;width:14px;text-align:center}
+.btn-add{background:var(--preto);color:var(--amarelo);border:0;padding:6px 8px;border-radius:14px;font-size:9px;font-weight:800;cursor:pointer;white-space:nowrap}
+.carrinho-btn{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);background:var(--preto);color:#fff;width:94%;max-width:400px;padding:10px 16px;border-radius:28px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 8px 20px rgba(0,0,0,.3);z-index:999;cursor:pointer;border:1.5px solid var(--amarelo);font-size:12px}
+.carrinho-box{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;z-index:1000;justify-content:flex-end}
+.carrinho-box.ativo{display:flex}
+.carrinho-conteudo{background:#fff;width:100%;max-width:400px;height:100%;padding:16px;overflow-y:auto;font-size:12px}
+.total{font-weight:800;font-size:16px;display:flex;justify-content:space-between;margin:12px 0;padding-top:10px;border-top:2px dashed #ddd}
+.input{width:100%;padding:10px;border-radius:10px;border:1px solid #ddd;margin-bottom:8px;font-size:12px}
+.pay-card{background:#fff8dd;border:1.5px solid var(--amarelo);border-radius:12px;padding:10px;margin-bottom:8px}
+.pay-card b{font-size:11px}
+.pay-card.num{font-size:15px;font-weight:800;display:flex;justify-content:space-between;align-items:center;margin-top:4px}
+.copy-btn{background:var(--preto);color:var(--amarelo);border:0;padding:4px 8px;border-radius:8px;font-size:9px;font-weight:800;cursor:pointer}
+.btn-whats{background:#25D366;color:#fff;border:0;width:100%;padding:14px;border-radius:12px;font-weight:800;font-size:12px;cursor:pointer;margin-top:12px;display:flex;justify-content:center;align-items:center;gap:6px}
+</style>
+</head>
+<body>
+
+<div class="header">
+ <h1>Eu ♡ <span>SALGADOS</span></h1>
+ <div class="badge">📍 NAMPULA • ENTREGAS RÁPIDAS • 850730250</div>
+</div>
+<div class="hero-wave"></div>
+
+<div class="container">
+ <div class="cat-title">🔥 Mini Salgados - Fritos</div>
+ <div class="grid" id="grid-fritos"></div>
+ <div class="cat-title">🍔 Mini Mims - Assados</div>
+ <div class="grid" id="grid-assados"></div>
+</div>
+
+<div class="carrinho-btn" id="abrir"><span>🛒 Carrinho</span><span id="resumo">0 itens • 0 MT</span></div>
+
+<div class="carrinho-box" id="box">
+ <div class="carrinho-conteudo">
+  <button onclick="box.classList.remove('ativo')" style="float:right;border:0;background:0;font-size:24px">×</button>
+  <h3 style="font-size:14px;margin-bottom:12px">Seu Pedido</h3>
+  <div id="listaCarrinho"></div>
+
+  <input id="nome" class="input" placeholder="Seu nome completo">
+  <input id="bairro" class="input" placeholder="Bairro para entrega - Nampula">
+
+  <p style="font-weight:700;margin:14px 0 8px;font-size:11px">💳 PAGAMENTO MANUAL:</p>
+
+  <div class="pay-card">
+   <b>📱 M-Pesa - Charmila Elija</b>
+   <div class="num"><span>850730250</span><button class="copy-btn" onclick="copiar('850730250')">COPIAR</button></div>
+  </div>
+
+  <div class="pay-card">
+   <b>📱 eMola - Charmila Elija</b>
+   <div class="num"><span>861568130</span><button class="copy-btn" onclick="copiar('861568130')">COPIAR</button></div>
+  </div>
+
+  <div style="background:#f5f5f5;padding:10px;border-radius:10px;font-size:10px;margin-top:8px;line-height:1.4">
+   1️⃣ Faça o pagamento para um dos números acima<br>
+   2️⃣ Tire print do comprovativo<br>
+   3️⃣ Clique no botão abaixo e envie o pedido + comprovativo no WhatsApp
+  </div>
+
+  <div class="total"><span>Total a pagar</span><span id="total">0 MT</span></div>
+
+  <button class="btn-whats" id="whatsBtn">📲 ENVIAR PEDIDO + COMPROVATIVO NO WHATSAPP</button>
+  <p style="font-size:10px;text-align:center;opacity:.6;margin-top:8px">Vai direto para o WhatsApp 850730250</p>
+ </div>
+</div>
+
+<script>
+const WHATS="258850730250";
+let produtos=[
+ {id:1,nome:"12 Chamussas",preco:300,img:"IMG_9676.jpeg",cat:"fritos",desc:"12 unidades"},
+ {id:2,nome:"12 Rissois",preco:350,img:"IMG_9686.jpeg",cat:"fritos",desc:"Frango/Camarão"},
+ {id:3,nome:"12 Spring Rolls",preco:300,img:"IMG_9677.jpeg",cat:"fritos",desc:"12 unidades"},
+ {id:4,nome:"12 Conchinhas",preco:350,img:"IMG_9678.jpeg",cat:"fritos",desc:"Recheadas"},
+ {id:5,nome:"12 Almofadinhas",preco:300,img:"IMG_9679.jpeg",cat:"fritos",desc:"12 unidades"},
+ {id:6,nome:"12 Croquetes",preco:350,img:"IMG_9680.jpeg",cat:"fritos",desc:"Carne"},
+ {id:7,nome:"12 Mini Pizza",preco:750,img:"IMG_9681.jpeg",cat:"assados",desc:"Queijo"},
+ {id:8,nome:"12 Mini Cachorro",preco:1800,img:"IMG_9682.jpeg",cat:"assados",desc:"Box 12"},
+ {id:9,nome:"12 Mini Pregos",preco:1800,img:"IMG_9683.jpeg",cat:"assados",desc:"Carne no pão"},
+ {id:10,nome:"12 Mini Pizza Esp.",preco:750,img:"IMG_9684.jpeg",cat:"assados",desc:"12 und"},
+ {id:11,nome:"12 Enroladinhos Salsicha",preco:350,img:"IMG_9685.jpeg",cat:"assados",desc:"Folhada"},
+];
+let carrinho={};
+function copiar(num){navigator.clipboard.writeText(num); alert('Número '+num+' copiado!');}
+function render(){
+ const gF=document.getElementById('grid-fritos'); const gA=document.getElementById('grid-assados');
+ produtos.forEach(p=>{
+  const d=document.createElement('div'); d.className='card';
+  d.innerHTML=`<img src="${p.img}" onerror="this.src='https://via.placeholder.com/200x150?text=${encodeURIComponent(p.nome)}'"><div class="card-body"><h3>${p.nome}</h3><small>${p.desc}</small><div class="price">${p.preco} MT <small>/ 12 und</small></div><div class="actions"><div class="qty"><button onclick="q(${p.id},-1)">-</button><span id="q-${p.id}">1</span><button onclick="q(${p.id},1)">+</button></div><button class="btn-add" onclick="add(${p.id})">ADD</button></div></div>`;
+  if(p.cat==='fritos') gF.appendChild(d); else gA.appendChild(d);
+ });
+}
+function q(id,d){let el=document.getElementById('q-'+id); let v=parseInt(el.innerText)+d; if(v<1)v=1; if(v>20)v=20; el.innerText=v;}
+function add(id){let qt=parseInt(document.getElementById('q-'+id).innerText); let prod=produtos.find(x=>x.id===id); if(!carrinho[id]) carrinho[id]={...prod,qtd:0}; carrinho[id].qtd+=qt; upd();}
+function upd(){let tot=0,itens=0,html=''; for(let k in carrinho){let it=carrinho[k]; tot+=it.preco*it.qtd; itens+=it.qtd; html+=`<div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>${it.qtd}x ${it.nome}</span><b>${it.preco*it.qtd} MT</b></div>`} document.getElementById('resumo').innerText=`${itens} itens • ${tot} MT`; document.getElementById('total').innerText=tot+' MT'; document.getElementById('listaCarrinho').innerHTML=html||'<p style="opacity:.5">Carrinho vazio</p>';}
+const box=document.getElementById('box'); document.getElementById('abrir').onclick=()=>box.classList.add('ativo'); box.onclick=e=>{if(e.target.id==='box') box.classList.remove('ativo')}
+document.getElementById('whatsBtn').onclick=()=>{
+ if(Object.keys(carrinho).length===0){alert('Adicione produtos');return;}
+ let nome=document.getElementById('nome').value; if(!nome){alert('Digite seu nome');return;}
+ let bairro=document.getElementById('bairro').value||'Nampula'; let total=document.getElementById('total').innerText;
+ let msg=`*NOVO PEDIDO - EU AMO SALGADOS*%0A%0A👤 Cliente: ${nome}%0A📍 Entrega: ${bairro}%0A%0A*ITENS:*%0A`;
+ for(let k in carrinho){let it=carrinho[k]; msg+=`• ${it.qtd}x ${it.nome} - ${it.preco*it.qtd} MT%0A`;}
+ msg+=`%0A*TOTAL: ${total}*%0A%0A💳 PAGAMENTO:%0AM-Pesa: 850730250%0AeMola: 861568130%0A%0A_Cliente vai enviar comprovativo a seguir_ 👇`;
+ window.open(`https://wa.me/${WHATS}?text=${msg}`,'_blank');
+}
+render();
+</script>
+</body>
+</html>
